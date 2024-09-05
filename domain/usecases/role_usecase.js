@@ -29,4 +29,24 @@ const getList = async () => {
     }
 }
 
-module.exports = { create, getList};
+// Function to update a role by ID
+const updateOne = async (roleId, updateData) => {
+    try {
+      const updatedRole = await repositories.updateOne(roleId, updateData);
+      return updatedRole;
+    } catch (error) {
+      throw new Error('Failed to update role');
+    }
+  };
+  
+  // Function to delete a role by ID
+  const deleteOne = async (roleId) => {
+    try {
+      const deletedRole = await repositories.deleteOne(roleId);
+      return deletedRole;
+    } catch (error) {
+      throw new Error('Failed to delete role');
+    }
+  };
+
+module.exports = { create, getList, updateOne, deleteOne};

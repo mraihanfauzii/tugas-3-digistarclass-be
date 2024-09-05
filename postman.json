@@ -5,6 +5,12 @@
     "description": "API for My Application",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "variable": [
+    {
+      "key": "jwt_token",
+      "value": ""
+    }
+  ],
   "item": [
     {
       "name": "User Registration",
@@ -64,7 +70,19 @@
           ]
         }
       },
-      "response": []
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "pm.environment.set(\"jwt_token\", jsonData.token);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
     },
     {
       "name": "Get All Users",
@@ -138,6 +156,27 @@
       "response": []
     },
     {
+      "name": "Delete User by ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7000/digistar/user/:id",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7000",
+          "path": [
+            "digistar",
+            "user",
+            ":id"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "Create Role",
       "request": {
         "method": "POST",
@@ -181,6 +220,57 @@
           "path": [
             "digistar",
             "role"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Role by ID",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"admin\",\n    \"position\": \"senior manager\",\n    \"stacks\": [\"nodejs\", \"react\", \"mongodb\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:7000/digistar/role/:id",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7000",
+          "path": [
+            "digistar",
+            "role",
+            ":id"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Role by ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:7000/digistar/role/:id",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7000",
+          "path": [
+            "digistar",
+            "role",
+            ":id"
           ]
         }
       },
@@ -239,6 +329,64 @@
           "path": [
             "digistar",
             "order"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Order by ID",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"product_name\": \"Product 1 Updated\",\n    \"quantity\": 20,\n    \"price\": 200,\n    \"status\": \"completed\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:7000/digistar/order/:id",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "7000",
+          "path": [
+            "digistar",
+            "order",
+            ":id"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Order by ID",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{jwt_token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:7000/digistar/order/:id",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "7000",
+          "path": [
+            "digistar",
+            "order",
+            ":id"
           ]
         }
       },

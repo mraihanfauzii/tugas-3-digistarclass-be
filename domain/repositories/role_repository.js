@@ -51,6 +51,26 @@ async function findAll() {
   }
 }
 
+// Function to update a role by ID
+async function updateOne(roleId, updateData) {
+  try {
+    const updatedRole = await Role.findOneAndUpdate({ role_id: roleId }, updateData, { new: true });
+    return updatedRole;
+  } catch (error) {
+    console.error('Error updating role:', error);
+    throw error;
+  }
+}
 
+// Function to delete a role by ID
+async function deleteOne(roleId) {
+  try {
+    const deletedRole = await Role.findOneAndDelete({ role_id: roleId });
+    return deletedRole;
+  } catch (error) {
+    console.error('Error deleting role:', error);
+    throw error;
+  }
+}
 
-module.exports = { create, getOneByRoleId, getOneByName, findAll };
+module.exports = { create, getOneByRoleId, getOneByName, findAll, updateOne, deleteOne };
